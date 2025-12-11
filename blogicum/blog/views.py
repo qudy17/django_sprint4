@@ -94,7 +94,7 @@ def category_posts(request, category_slug):
 
 
 def profile(request, username):
-    """View фун��ция - профиль пользователя."""
+    """View функция - профиль пользователя."""
     template = 'blog/profile.html'
 
     profile = get_object_or_404(User, username=username)
@@ -170,6 +170,7 @@ def edit_post(request, post_id):
 
 @login_required
 def add_comment(request, post_id):
+    """View функция - добавления комментария."""
     post = get_object_or_404(
         Post.objects.select_related('location', 'category', 'author'),
         pk=post_id
@@ -201,6 +202,7 @@ def add_comment(request, post_id):
 
 @login_required
 def edit_comment(request, post_id, comment_id):
+    """View функция - редактирования комментария."""
     comment = get_object_or_404(Comment, pk=comment_id, post__pk=post_id)
     if request.user != comment.author:
         return redirect('blog:post_detail', post_id=post_id)
